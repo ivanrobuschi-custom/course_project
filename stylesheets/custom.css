@@ -1,0 +1,43 @@
+/* docs/stylesheets/custom.css */
+
+/* 1. Caricamento font locali Titillium Web */
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../assets/fonts/TitilliumWeb-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../assets/fonts/TitilliumWeb-Black.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* 2. Override variabili globali di MkDocs */
+:root {
+  /* Imposta il font locale */
+  --md-text-font-family: 'Titillium Web', sans-serif;
+  
+  /* Imposta i colori base prendendoli dal brand Custom */
+  --md-primary-fg-color: #232323; 
+  --md-accent-fg-color: #5593c6; 
+}
+
+/* 3. Applicazione Background all'Header */
+.md-header {
+  background-image: url('../assets/images/Custom_background_02.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Assicura che la top bar sia sufficientemente alta per il logo */
+  height: 3.5rem; 
+}
+
+/* 4. Ottimizzazione proporzioni Logo */
+.md-header__button.md-logo img, 
+.md-header__button.md-logo svg {
+  height: 1.8rem;
+  width: auto;
+}
