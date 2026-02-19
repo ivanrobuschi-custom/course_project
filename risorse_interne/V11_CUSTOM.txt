@@ -1,0 +1,59 @@
+TELEMATICO V11 MEMO IMPLEMENTAZIONI.
+
+1) REPORT MEMORIA DI RIEPILOGO SPECIFICO PER AGGIORNAMENTI FIRMWARE, VERIFICHE PERIODICHE, INTERVENTI TECNICI DIFFERENZIATI PER CODICE.
+
+- aggiunto da tastiera report L93 con cui si possono filtrare gli interventi tecnici per tipo o raggrupparli tutti assieme.
+- stessa funzione da protocollo custom con il comando 5013.
+
+2) SEGNALAZIONE DEL 90% DELLE MEMORIE DI DETTAGLIO E RIEPILOGO CON ATTESA CONFERMA.
+
+- al raggiungiento del 90% del giornale o della memoria fiscale viene stampato il talloncino di avviso a cui segue
+  richiesta di conferma lettura.
+- la conferma può avvenire tramite il tasto TOTALE o AV CARTA, il pulsantino di FEED per le macchine che ne sono provviste e da
+  protocollo custom con il comando 2010
+  
+3) AVVISO DI CHIUSURA FISCALE OBBLIGATORIA
+in caso di giornata aperta dalle ore 23:30 il registratore visualizzerà sul display, ad ogni scontrino emesso, un messaggio di avviso che invita l’operatore ad effettuare la chiusura fiscale entro la mezzanotte.
+in caso di giornata aperta alle ore 23:58 il registratore stamperà su documento gestionale un messaggio bloccante che obbligherà l’operatore ad eseguire la chiusura fiscale
+in caso di scontrino aperto questo verrà annullato in automatico
+le vendite saranno bloccate e come per il periodo inattivo sarà possibile fare solo l’azzeramento con tasto FEED, Avanzamento carta o TOTALE
+da protocollo implementato comando 1530 per riconoscere lo stato di warning (23:30) o di blocco (23:58)
+Eliminata programmazione P012
+Da protocollo riceviamo l’ERRORE 70 (24H SUPERATE, sono passate più di 24 ore dalla prima vendita effettuata. Eseguire una chiusura fiscale) il comando era già utilizzato in passato.
+
+4) ESPORTAZIONE XML MEMORIE DI DETTAGLIO E RIEPILOGO.
+
+- modificate le routine di esportazione su file XML del giornale di fondo (da data a data o completo) e della memoria fiscale (completa)
+- l'esportazione di entrambe le memorie avviene utilizzando la SD esterna e secondo nuove regole dettate dal ministero (nuovi XSD e PDF).
+- da tastiera si naviga nella P699 - Esercente - Report - (Report MDETT in XML - Report MRIEP in XML)
+- da protocollo custom comandi 6431 MF 6432 EJ
+- l'esportazione della MF può essere INTEGRALE, PER DATA o PER NUMERO Z.
+- l'esportazione dell' EJ può essere INTEGRALE o PER DATA.
+
+5) GESTIONE DISALLINEAMENTI SERVER - CASSA.
+
+- tramite apposito servizio SSL viene preso e memorizzato lo stato della cassa sul server e confrontato poi con lo stato cassa per 
+  catturarne eventuali disallineamenti.
+- dopo una Z con errore 200 XML, viene richiesto aggiornamento stato del server
+- dopo una Z con ritorno positivo con stato server memorizzato sulla cassa = DISATTIVO, viene richiesto aggiornamento stato del server.
+- dopo ogni segnalazione di evento viene richiesto l'aggiornamento dello stato del server
+- apertura documento commerciale: se stato server = disattivato e stato cassa no, stampa tagliandino di segnalazione
+  "ATTENZIONE! DISPOSITIVO BLOCCATO NECESSARIO INTERVENTO TECNICO PER LO SBLOCCO"
+- il tecnico risistema lo stato del server e alla z successiva a buon fine si riallinea anche la cassa.
+- la stampa delle info nella P699 comprende anche lo stato della cassa sul server.
+
+6) INTEGRAZIONE DELLA MESSAGGISTICA PER IL RT.  
+
+- ogni 1 ora + random di max 2 ore la cassa interroga il server per vedere se ci sono messaggi a lei destinati
+- la p699 indica il tempo rimanente prima del collegamento con il server per i messaggi
+- se ci sono li riceve li memorizza in memoria di riepilogo e in polling ne stampa il contenuto chiedendo conferma della lettura.
+- i messaggi vengono stampati anche all'interno della chiusura di giornata e vengono eliminati solo da un intervento tecnico.
+- i messaggi vengono stampati nel report della memoria di riepilogo
+- i messaggi possono essere caricati per debug (solo con le matricole di test) con i codici shortcut 1603, 1604, 1605
+- i messaggi possono essere caricati per debug (solo con le matricole di test) con il comando di protocollo 6436
+- il controllo dei messaggi può essere forzato con lo shortcut 1602
+
+7) FUORI SERVIZIO PER PERIODO INATTIVO DA TASTO SHORTCUT.
+
+- aggiunto shortcut da tastiera per mandare la cassa in fuori servizio per periodo inattivo CODICE 1600 + chiave
+
