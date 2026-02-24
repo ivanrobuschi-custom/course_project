@@ -1,0 +1,57 @@
+site_name: EDGE-N+ REGISTRATORE TELEMATICO
+site_url: https://tua-url-custom.com/
+site_author: Supporto Tecnico Presales
+site_description: Documentazione tecnica e procedure di installazione per Custom Edge RT.
+
+theme:
+  name: material
+  language: it
+  logo: asset/images/CUSTOM-logo_White-RGB.png
+  favicon: asset/images/CUSTOM-logo_CustomBlue05-RGB.png
+  palette:
+    scheme: default
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+extra_css:
+  - stylesheets/custom.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Modulo 1 - Normativa e Specifiche:
+      - Specifiche Tecniche V11.1 (Download): modulo1_normativa/specifiche_v11.md
+      - Report e Segnalazioni Memorie (90%): modulo1_normativa/report_memorie.md
+      - Esportazione XML (MDETT e MRIEP): modulo1_normativa/esportazione_xml.md
+      - Messaggistica RT e Fuori Servizio: modulo1_normativa/messaggistica_rt.md
+      - Verifica Periodica e Blocco Vendite: modulo1_normativa/verifica_periodica.md
+  - Modulo 2 - Architettura Hardware:
+      - Panoramica EDGE-N / EDGE-N+: modulo2_hardware/panoramica.md
+      - Sigillo Fiscale e Tamper: modulo2_hardware/sigillo_tamper.md
+  - Modulo 3 - Installazione e Configurazione:
+      - Prima Accensione: modulo3_setup/prima_accensione.md
+      - Configurazione Rete e Web Server: modulo3_setup/configurazione_rete.md
+      - Connessioni Interne (RS232): modulo3_setup/connessioni_interne.md
+  - Modulo 4 - Troubleshooting e Manutenzione:
+      - Gestione Errori Comuni: modulo4_troubleshooting/errori_comuni.md
+      - Aggiornamento Firmware: modulo4_troubleshooting/aggiornamento_fw.md
